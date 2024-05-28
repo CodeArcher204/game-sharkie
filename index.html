@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sharkie</title>
+        <link rel="stylesheet" href="./style.css" />
+        <link rel="icon" type="image/x-icon" href="img/1.Sharkie/3.Swim/1.png">
+        <script src="./models/drawable-object.class.js"></script>
+        <script src="./models/movable-object.class.js"></script>
+        <script src="./models/enemies/endboss.class.js"></script>
+        <script src="./models/character.class.js"></script>
+        <script src="./models/world.class.js"></script>
+        <script src="./models/background-object.class.js"></script>
+        <script src="./models/sound-manager.class.js"></script>
+        <script src="./models/enemies/puffer-fish.class.js"></script>
+        <script src="./models/enemies/jelly-fish.class.js"></script>
+        <script src="./models/light.class.js"></script>
+        <script src="./models/statusBar/poisoned-bubbles.class.js"></script>
+        <script src="./models/statusBar/coinbar.class.js"></script>
+        <script src="./models/statusBar/health-bar.class.js"></script>
+        <script src="./models/statusBar/endboss-healthbar.class.js"></script>
+        <script src="./models/items/coins.class.js"></script>
+        <script src="./models/items/poison-bottle.class.js"></script>
+        <script src="./models/keyboard.class.js"></script>
+        <script src="./models/throwable.object.class.js"></script>
+        <script src="./models/level.class.js"></script>
+        <script src="./levels/level1.js"></script>
+        
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="turnDevice">Please rotate your device!</div>
+            <h1 class="headline">Sharkie</h1>
+            <div  class="startScreen"  id="startScreen">
+                <div id="menuButtons" class="menu">
+                    <img class="startButton" id="startGameButton" src="img/6.Botones/Start/1.png" alt="Start Game" />
+                    <button onclick="handleControlScreen()" class="controlBtn" id="controlsButton">Controls</button>
+                </div>
+                        <!-- controls -->
+                <div id="controlDiv" class="control-Screen d-none">
+                    <img onclick="goBack()" class="arrow-back" src="img/icons/arrow_back.svg" alt="">
+                    <table >
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img id="arrowLeft" class="mobile-Controls-Img" src="img/6.Botones/Key/arrow keys.png" alt="arrow keys" />
+                                </td>
+                                <td>
+                                    <h2>Move Sharkie</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="center">
+                                    <img class="attack-key-d" src="img/6.Botones/Key/D key.png" alt="Key D">
+                                </td>
+                                <td>
+                                    <h2>Bubble Attack</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img id="spacebar" class="right-Container-Space-Img" src="img/6.Botones/Key/Space Bar key.png" alt="spacebar" />
+                                </td>
+                                <td>
+                                    <h2>Melee Attack</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+    
+        <div id="youWinContainer" class="youWinScreen d-none">
+            <img onclick="restartGame()" src="img/6.Botones/Try again/Recurso 15.png" alt="" class="tryAgainBtn">
+        </div>
+        <div id="youLoseContainer" class="youLoseScreen d-none">
+            <img onclick="restartGame()" src="img/6.Botones/Try again/Recurso 15.png" alt="" class="tryAgainBtn">
+        </div>
+        <div id="canvasContainer" class="d-none gameContainer">
+            <canvas class="canvas" id="canvas" width="720" height="480"></canvas>
+            <img class="muteBtn" src="img/icons/volume_mute.svg" id="stopAllSounds"></img>
+            <img class="homeBtn" id="backToMainMenu" src="img/icons/home_icon.svg" alt="Home">
+            <div class="menuContainer d-none" id="menuBtnsContainer">
+                <span class="back-menu-text">Back to Menu?</span>
+                <div>
+                    <button id="yes-btn" class="menuBtn">yes</button>
+                    <button id="no-btn" class="menuBtn" >no</button>
+                </div>
+            </div>
+            <div class="hud d-none" id="touchControls">
+                <div class="direction-controls">
+                    <img src="img/icons/arrow_upward.svg" class="control-btn" id="up-btn"></img>
+                    <div class="direction-controls-second-row">
+                        <img src="img/icons/arrow_back.svg" class="control-btn" id="left-btn"></img>
+                        <img src="img/icons/arrow_downward.svg" class="control-btn" id="down-btn"></img>
+                        <img src="img/icons/arrow_right.svg" class="control-btn" id="right-btn"></img>
+                    </div>
+                </div>
+                <div class="action-controls">
+                    <button class="control-btn" id="d-btn">BUBBLE</button>
+                    <button class="control-btn" id="space-btn">SLAP</button>
+                </div>
+            </div>
+        </div>
+        <div id="websiteLinks" class="links">
+            <a target="_blank" href="./impressum.html">Impressum</a>
+            <a target="_blank" href="./datenschutz.html">Datenschutz</a>
+        </div>
+    
+        </div>
+
+        <script src="./js/game.js"></script>
+    </body>
+</html>

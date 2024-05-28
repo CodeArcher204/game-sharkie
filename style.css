@@ -1,0 +1,415 @@
+body {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    margin: 0;
+    padding: 0;
+    background-image: url('img/3. Background/sharky-bg.png');
+    background-size:cover;
+    background-position: center;
+    /* height: 100vh; */
+    color: white;
+    font-family: 'Luckiest Guy', 'sans-serif';
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh;
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+canvas {
+    background-color: black;
+    border-radius: 10px;
+    display: block;
+}
+
+.gameContainer {
+    position: relative;
+
+}
+
+@font-face {
+    font-family: 'Luckiest Guy';
+    src: url('fonts/LuckiestGuy-Regular.ttf') format('truetype');
+}
+
+.links {
+    position: absolute;
+    bottom: 8px;
+    z-index: 2200;
+}
+
+.links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px;
+}
+
+h1 {
+    font-size: 64px;
+    letter-spacing: 4px;
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+}
+
+.control-Screen td {
+    padding: 30px;
+}
+
+.startScreen {
+    background-image: url('img/3. Background/Mesa de trabajo 1.png');
+    background-size:cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px;
+    height: 480px;
+    width: 720px;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.startScreenIMG {
+    height: 480px;
+    width: 720px;
+}
+
+.startButton:hover {
+    cursor: pointer;
+    scale: 1.1;
+    box-shadow: #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px;
+    border-radius: 15px;
+}
+
+.controlBtn {
+    padding: 7px 20px;
+    background-color: #531A82;
+    color: white;
+    border-radius: 15px;
+    border-color: white;
+    font-size: 24px;
+    font-family: 'Luckiest Guy';
+}
+
+.controlBtn:hover {
+    cursor: pointer;
+    scale: 1.1;
+    box-shadow: #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px;
+    border-radius: 15px;
+}
+
+.startButton {
+    height: 50px;
+
+}
+
+.control-Screen {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.attack-key-d {
+    height: 80px;
+    
+}
+
+.mobile-Controls-Img {
+    height: 150px;
+}
+
+.right-Container-Space-Img {
+    height: 60px;
+    width: 250px;
+}
+
+.arrow-back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+}
+
+.arrow-back:hover {
+    cursor: pointer;
+    scale: 1.1;
+}
+
+.muteBtn {
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 11;
+}
+.muteBtn:hover {
+    scale: 1.1;
+}
+
+.playPauseBtn {
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 140px;
+    cursor: pointer;
+}
+
+.youWinScreen {
+    background-image: url('img/6.Botones/Tittles/You win/Mesa de trabajo 1.png');
+    background-size:cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px;
+    height: 480px;
+    width: 720px;
+    z-index: 100;
+    border-radius: 10px;
+}
+
+.youLoseScreen {
+    background-image: url('img/6.Botones/Tittles/Game Over/Recurso 13.png');
+    background-size:contain;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 480px;
+    width: 720px;
+    z-index: 100;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+}
+
+.tryAgainBtn {
+    width: 200px;
+    position: relative;
+    top: 100px;
+}
+
+.tryAgainBtn:hover {
+    scale: 1.1;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px;
+}
+
+.homeBtn {
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.homeBtn:hover{
+    scale: 1.1;
+}
+
+.d-none {
+    display: none;
+}
+
+.show {
+    display: flex;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuContainer {
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.menuBtn {
+    padding: 7px 20px;
+    background-color: #531A82;
+    color: white;
+    border-radius: 15px;
+    border-color: white;
+    font-size: 24px;
+    font-family: 'Luckiest Guy';
+    width: 150px;
+}
+
+.menuBtn:hover {
+    cursor: pointer;
+    scale: 1.1;
+    box-shadow: #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px, #AAE6EF 0px 2px 16px 0px;
+    border-radius: 15px;
+}
+
+.back-menu-text {
+    padding: 7px 20px;
+    color: white;
+    border-radius: 15px;
+    border-color: white;
+    font-size: 40px;
+    font-family: 'Luckiest Guy';
+}
+
+
+/* mobile control styling */
+
+/* HUD-Styling */
+.hud {
+    /* display: flex; */
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /* bottom: 0px; */
+    width: 720px;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.direction-controls {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.action-controls {
+    display: flex;
+    gap: 30px;
+    align-items: end;
+}
+.direction-controls-second-row {
+    gap: 10px;
+    display: flex;
+}
+
+.control-btn {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 50px;
+    height: 50px;
+    user-select: none; 
+    touch-action: manipulation; 
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+    .hud {
+        width: 100% !important;
+    }
+
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh
+    }
+    .headline {
+        display: none;
+    }
+    .control-Screen td {
+        padding: 8px;
+    }
+    .arrow-back {
+        left: 40px;
+    }
+    .startScreen {
+        height: auto;
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hud {
+        display: flex; 
+    }
+    /* .headline {
+        display: none;
+    } */
+}
+
+.turnDevice {
+    display: none !important; /* Standardmäßig versteckt */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    z-index: 1800;
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .turnDevice {
+      display: flex !important; /* Zeigt den Hinweis im Hochformat und bei schmalen Bildschirmen an */
+    }
+    .startScreen {
+        display: none;
+    }
+    .control-Screen {
+        height: 100vh;
+    }
+    .links {
+        display: none;
+    }
+
+  }
+
+  @media (max-height: 800px) {
+    .headline {
+        display: none;
+    }
+  }
+
+  @media(max-height: 220px) {
+    .turnDevice {
+        display: flex !important;
+    }
+  }

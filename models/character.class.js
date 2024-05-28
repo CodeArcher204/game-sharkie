@@ -1,0 +1,384 @@
+class Character extends MovableObject {
+    width = 200;
+    height = 200;
+    speed = 5;
+    y = 80;
+    x = 0;
+    isDeadAnimation = false;
+    soundManager = SoundManager.instance;
+    coins = 0;
+    poisonedBottles = 0;
+    lastEnemyType = null;
+    baseDamage = 10;
+    extraDamagePerBottle = 5;
+    ignoreCharacterInputs = false;
+    hasTriggeredInputLock = false;
+    lastInputTime = Date.now();
+    idleAnimationPlayed = false;
+    isSinking = false;
+    sinkingEndPositionY = 250;
+    sinkingSpeed = 1;
+    animationForBoss = false;
+
+    IMAGES_WALKING = [
+        "img/1.Sharkie/3.Swim/1.png",
+        "img/1.Sharkie/3.Swim/2.png",
+        "img/1.Sharkie/3.Swim/3.png",
+        "img/1.Sharkie/3.Swim/4.png",
+        "img/1.Sharkie/3.Swim/5.png",
+        "img/1.Sharkie/3.Swim/6.png",
+    ];
+    IMAGES_ATTACK_FIN_SLAP = [
+        "img/1.Sharkie/4.Attack/Fin slap/1.png",
+        "img/1.Sharkie/4.Attack/Fin slap/2.png",
+        "img/1.Sharkie/4.Attack/Fin slap/3.png",
+        "img/1.Sharkie/4.Attack/Fin slap/4.png",
+        "img/1.Sharkie/4.Attack/Fin slap/5.png",
+        "img/1.Sharkie/4.Attack/Fin slap/6.png",
+        "img/1.Sharkie/4.Attack/Fin slap/7.png",
+        "img/1.Sharkie/4.Attack/Fin slap/8.png",
+        "img/1.Sharkie/3.Swim/1.png",
+    ];
+
+    IMAGES_DEAD = [
+        "img/1.Sharkie/6.dead/1.Poisoned/1.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/2.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/3.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/4.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/5.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/6.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/7.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/8.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/9.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/10.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/11.png",
+        "img/1.Sharkie/6.dead/1.Poisoned/12.png",
+    ];
+
+    IMAGES_HURT = [
+        "img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
+        "img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
+        "img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
+        "img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
+    ];
+
+    IMAGES_BUBBLE_ATTACK = [
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/1.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/2.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/3.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/4.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/5.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/6.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/7.png',
+        'img/1.Sharkie/4.Attack/Bubble trap/op1 (with bubble formation)/8.png',
+        "img/1.Sharkie/3.Swim/1.png",
+    ];
+
+    IMAGES_ELECTRIC_SHOCK =  [
+        'img/1.Sharkie/5.Hurt/2.Electric shock/1.png',
+        'img/1.Sharkie/5.Hurt/2.Electric shock/2.png',
+        'img/1.Sharkie/5.Hurt/2.Electric shock/3.png',
+    ];
+
+    IMAGES_SHARKIE_IDLE = [
+        'img/1.Sharkie/1.IDLE/1.png',
+        'img/1.Sharkie/1.IDLE/2.png',
+        'img/1.Sharkie/1.IDLE/3.png',
+        'img/1.Sharkie/1.IDLE/4.png',
+        'img/1.Sharkie/1.IDLE/5.png',
+        'img/1.Sharkie/1.IDLE/6.png',
+        'img/1.Sharkie/1.IDLE/7.png',
+        'img/1.Sharkie/1.IDLE/8.png',
+        'img/1.Sharkie/1.IDLE/9.png',
+        'img/1.Sharkie/1.IDLE/10.png',
+        'img/1.Sharkie/1.IDLE/11.png',
+        'img/1.Sharkie/1.IDLE/12.png',
+        'img/1.Sharkie/1.IDLE/13.png',
+        'img/1.Sharkie/1.IDLE/14.png',
+        'img/1.Sharkie/1.IDLE/15.png',
+        'img/1.Sharkie/1.IDLE/16.png',
+        'img/1.Sharkie/1.IDLE/17.png',
+        'img/1.Sharkie/1.IDLE/18.png',
+    ];
+
+    IMAGES_SHARKIE_LONG_IDLE = [
+        'img/1.Sharkie/2.Long_IDLE/i1.png',
+        'img/1.Sharkie/2.Long_IDLE/I2.png',
+        'img/1.Sharkie/2.Long_IDLE/I3.png',
+        'img/1.Sharkie/2.Long_IDLE/I4.png',
+        'img/1.Sharkie/2.Long_IDLE/I5.png',
+        'img/1.Sharkie/2.Long_IDLE/I6.png',
+        'img/1.Sharkie/2.Long_IDLE/I7.png',
+        'img/1.Sharkie/2.Long_IDLE/I8.png',
+        'img/1.Sharkie/2.Long_IDLE/I9.png',
+        'img/1.Sharkie/2.Long_IDLE/I10.png',
+        'img/1.Sharkie/2.Long_IDLE/I11.png',
+        'img/1.Sharkie/2.Long_IDLE/I12.png',
+        'img/1.Sharkie/2.Long_IDLE/I13.png',
+        'img/1.Sharkie/2.Long_IDLE/I14.png',
+    ];
+
+    world;
+
+    /**
+     * Constructs a new Character object and initializes its properties.
+     */
+    constructor() {
+        super().loadImage("img/1.Sharkie/3.Swim/1.png");
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ATTACK_FIN_SLAP);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_BUBBLE_ATTACK);
+        this.loadImages(this.IMAGES_ELECTRIC_SHOCK);
+        this.loadImages(this.IMAGES_SHARKIE_IDLE);
+        this.loadImages(this.IMAGES_SHARKIE_LONG_IDLE);
+
+        this.animate();
+    }
+    
+    /**
+     * Monitors player input for character movement and actions.
+     */
+    handlePlayerInput() {
+        setInterval(()=> {
+            this.checkForInputLock();
+            if(!this.isDead() && !this.ignoreCharacterInputs) {
+                if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
+                    if(!this.world.endbossEncounterStarted || this.x < 2900) {
+                        this.x += Math.round(this.speed);
+                    }
+                    this.otherDirection = false;
+                    if(!this.world.endbossEncounterStarted) {
+                        this.world.camera_x = -this.x;
+                    }
+                }
+                if(this.world.keyboard.LEFT && this.x > 0){
+                    if(!this.world.endbossEncounterStarted || this.x > 2300){
+                        this.x -= Math.round(this.speed);
+                    }
+                    this.otherDirection = true;
+                    if(!this.world.endbossEncounterStarted) {
+                        this.world.camera_x = -this.x;
+                    }
+                }
+                if(this.world.keyboard.UP && this.y > -90){
+                    this.y -= Math.round(this.speed);
+                }
+                if(this.world.keyboard.DOWN && this.y < 300){
+                    this.y += Math.round(this.speed);
+                }
+
+            }
+
+        }, 1000 / 60);
+    }
+
+    /**
+     * Handles the animation and action when the player's character dies.
+     */
+    handlePlayerDeath() {
+        setInterval(() => {
+            if(this.isDead() && !this.isDeadAnimation) {
+                this.isDeadAnimation = true;
+                this.playAnimationOnce(this.IMAGES_DEAD);
+                this.soundManager.stop('swimming');
+                this.soundManager.stop('sharkieHurt');
+                this.soundManager.playForDuration('sharkieDead', 2500)
+                setTimeout(() => {
+                    setTimeout(() => {
+                        this.soundManager.toggleMute();
+                    }, 1000);
+                    showYouLoseScreen()
+                }, 2500); 
+            }
+        }, 50);
+    }
+
+    /**
+     * Controls the animation based on player inputs and game events.
+     */
+    handlePlayerAnimation() {
+        setInterval(() => {
+            if(!this.isDead() && !this.ignoreCharacterInputs){
+                if (this.isHurt()) {
+                    this.soundManager.play('sharkieHurt');
+                    this.takeDamageFrom(this.lastEnemyType); 
+                }
+                if(this.world.keyboard.SPACE && !this.isAnimating) {
+                        this.soundManager.play('finSlap');
+                        this.playAnimationOnce(this.IMAGES_ATTACK_FIN_SLAP);
+                        this.checkAttackCollision();
+                }
+                if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN) {
+                    this.playAnimation(this.IMAGES_WALKING);
+                    this.soundManager.play('swimming');
+                } else {
+                    this.soundManager.stop('swimming');
+                }
+                if(world.keyboard.D && !world.character.isAnimating) {
+                    this.soundManager.playForDuration('bubbleAttack', 1000);
+                    this.bubbleAttackCharacter();
+                }
+                if (this.isSinking && this.y < this.sinkingEndPositionY) {
+                    this.y += this.sinkingSpeed;
+                }
+            }
+        }, 100);
+    }
+
+    /**
+     * Checks and handles the character's idle state based on the last input time.
+     */ 
+    playerIdleCheck() {
+        setInterval(() => {
+            if (!this.isDead() && !this.ignoreCharacterInputs) {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.D || this.world.keyboard.SPACE) {
+                    this.lastInputTime = Date.now(); 
+                    this.idleAnimationPlayed = false;
+                }
+            }
+            if (Date.now() - this.lastInputTime > 10000 && !this.idleAnimationPlayed && !this.isDead()) { 
+                this.playAnimationOnce(this.IMAGES_SHARKIE_LONG_IDLE); 
+                this.soundManager.play('sharkieIdle');
+                this.idleAnimationPlayed = true; 
+                this.isSinking = true;
+            } else if (!this.idleAnimationPlayed && !this.isDead()){
+                this.isSinking = false;
+                this.playAnimation(this.IMAGES_SHARKIE_IDLE);
+            }
+        }, 200);
+    }
+
+    /**
+     * Checks if the character needs to lock input based on their position in the game world.
+     */
+    checkForInputLock() {
+            if(this.x >= 2340 && !this.hasTriggeredInputLock){
+                let endboss = world.level.enemies.find(enemy => enemy.name === 'Endboss');
+                endboss.hadFirstContact = true;
+                this.ignoreCharacterInputs = true;
+                this.hasTriggeredInputLock= true;
+                this.soundManager.stop('swimming');
+                setTimeout(()=> {
+                    this.ignoreCharacterInputs = false;
+                }, 2000);
+            }
+    }
+
+    /**
+     * Starts the various animation loops related to the character.
+     */
+    animate() {
+        this.handlePlayerAnimation();
+        this.handlePlayerInput();
+        this.handlePlayerDeath();
+        this.playerIdleCheck();
+    }
+
+    /**
+     * Applies damage to the character based on the type of enemy they interact with.
+     * @param {string} enemyType - The type of the enemy causing damage.
+     */ 
+    takeDamageFrom(enemyType) {
+        if (enemyType === 'JellyFish') {
+            this.playAnimation(this.IMAGES_ELECTRIC_SHOCK);
+        } else {
+            this.playAnimation(this.IMAGES_HURT);
+        }
+    }
+
+    /**
+     * Updates the character's coin count and speed upon collecting a coin.
+     */
+    coinCollected() {
+        this.coins += 3.85;
+        this.speed += 0.1;
+    }
+
+    /**
+     * Handles the effects of collecting a poison bottle.
+     */
+    poisonBottleCollected() {
+        if(this.poisonedBottles < 5) {
+            this.poisonedBottles += 1;
+            world.poisonBar.setPercentage(this.poisonedBottles);
+        }
+    }
+
+    /**
+     * Checks for collisions between the character and enemies and handles the consequences.
+     */
+    async checkAttackCollision() {
+        for (let i = 0; i < this.world.level.enemies.length; i++) {
+            let enemy = this.world.level.enemies[i];
+            if (this.isCollidingWithAttack(enemy)) {
+                if (enemy.name === 'JellyFish') {
+                    continue;
+                }
+                this.handleEnemyHit(enemy);
+                console.log(enemy.name)
+                if (enemy.enemyIsDead()) {
+                    await this.handleEnemyDeath(enemy, i);
+                }
+            }
+        }
+    }
+
+    /**
+     * Manages the actions to take when an enemy dies.
+     * @param {Object} enemy - The enemy that has died.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
+    async handleEnemyDeath(enemy, index) {
+        await enemy.playDeathAnimation();
+        if (enemy.name === 'Endboss') {
+            this.handleEndbossDeath(index, enemy);
+        } else {
+            this.removeEnemy(index);
+        }
+    }
+
+    /**
+     * Checks if the player's attack is colliding with an enemy.
+     * @param {Object} mo - The enemy object to check for collision.
+     * @returns {boolean} True if there is a collision, otherwise false.
+     */
+    isCollidingWithAttack(mo) {
+        let attackStartX, attackWidth;
+    
+        if(this.otherDirection) {
+            // if character looks left expand left
+            attackWidth = 60; // additional width 
+            attackStartX = this.x + 50 - attackWidth; // starting point of hitbox to the left
+        } else {
+            // if character looks right expand right
+            attackWidth = this.width + 15; // use width of character to expand 
+            attackStartX = this.x + 10; // starting point of hitbox
+        }
+        return attackStartX + attackWidth > mo.x &&
+               attackStartX < mo.x + mo.width &&
+               this.y + 125 < mo.y + mo.height &&
+               this.y + 100 + (this.height - 150) > mo.y;
+    }
+
+    /**
+     * Executes a bubble attack, managing damage and effects based on the character's state.
+     */
+    bubbleAttackCharacter() {
+        let totalDamage = this.baseDamage + this.poisonedBottles * this.extraDamagePerBottle;
+    
+        world.character.playAnimationOnce(world.character.IMAGES_BUBBLE_ATTACK, () => {
+            let bubbleXPosition = this.otherDirection ? this.x - 10 : this.x + 150;
+            let bubble;
+            if(this.poisonedBottles > 0) {
+                bubble = new BubbleAttack(bubbleXPosition, this.y + 100, true, totalDamage, this.otherDirection);
+                this.poisonedBottles -= 1;
+                world.poisonBar.setPercentage(this.poisonedBottles);
+            } else {
+                bubble = new BubbleAttack(bubbleXPosition, this.y + 100, false, this.baseDamage, this.otherDirection);
+            }
+            world.bubbleAttacks.push(bubble);
+        });
+    }
+}
